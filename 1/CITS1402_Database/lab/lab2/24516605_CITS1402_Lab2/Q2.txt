@@ -1,0 +1,3 @@
+select item_id, price 
+from items
+where on_hand<100;

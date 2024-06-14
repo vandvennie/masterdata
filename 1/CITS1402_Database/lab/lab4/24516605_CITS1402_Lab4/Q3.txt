@@ -1,0 +1,4 @@
+select b.job_id,b.descr,p.po_id,i.item_id, i.descr
+from bookjobs b,po_items p,items i
+where b.job_id=p.job_id and p.item_id=i.item_id
+order by b.job_id,p.po_id,i.item_id;

@@ -1,0 +1,20 @@
+DROP VIEW IF EXISTS pendingFee;
+DROP VIEW IF EXISTS stats;
+DROP VIEW IF EXISTS expensiveServices;
+
+create view pendingFee As
+select c.personalName,c.familyName,cc.familyName as payerFamilyName,cc.personalName as payerPersonalName,i.totalFee pendingFee,cc.contactPhoneNumber1 contactPhoneNumber,cc.streetAddress
+from client c
+join client cc on c.billPayerNumber=cc.clientNumber
+join invoice i on i.clientNumber=c.clientNumber
+where i.status='B' or i.status='C';
+
+create view stats as
+select c.familyName,c.personalName, s.familyName surgeonFamilyName,s.qualifications1 qualifications
+from client c 
+join Appointment a on c.clientNumber=a.clientNumber
+join Surgeon s on a.uniqueIdentifierCode=s.uniqueIdentifierCode
+where a.date<'2024-02-01';
+
+create view expensiveServices as 
+select * from Service where currentServiceFee>100;

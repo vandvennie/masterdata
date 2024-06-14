@@ -1,0 +1,4 @@
+select cust_id, 'Code_D' as Reason from publishers where creditcode="D"
+union all
+select cust_id, 'Type_R' as Reason from bookjobs where jobtype="R"
+order by cust_id;

@@ -1,0 +1,3 @@
+Select pos.* from pos left join bookjobs on pos.job_id=bookjobs.job_id
+join publishers on bookjobs.cust_id=publishers.cust_id
+where publishers.creditcode ="C";

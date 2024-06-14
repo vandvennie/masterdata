@@ -1,0 +1,1 @@
+select b.job_id from bookjobs b left join po_items p,items i on b.job_id=p.job_id and p.item_id=i.item_id where b.jobtype="N" and i.descr='9KG PAPER';

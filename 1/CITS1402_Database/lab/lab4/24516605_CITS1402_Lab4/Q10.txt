@@ -1,0 +1,3 @@
+update big_jobs
+set jobtype='S'
+where tot_pos is not null and tot_pos<"2000";

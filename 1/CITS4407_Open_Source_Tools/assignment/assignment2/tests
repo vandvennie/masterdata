@@ -1,0 +1,19 @@
+column1=$(awk 'BEGIN {FS="\t"}
+{print NF; exit}' "$1"*_sort.txt)
+column2=$(awk 'BEGIN {FS="\t"}
+{print NF; exit}' "$2"*_sort.txt)
+column3=$(awk 'BEGIN {FS="\t"}
+{print NF; exit}' "$3"*_sort.txt)
+
+
+#for (i = 2; i <= missing_fields; i++)
+#do
+ #   join -t $'\t' -a 1 -a 2 -o  "$1"*_sort.txt "$2"*_sort.txt > cleaned_data_t.txt
+#done
+
+echo "$column1,$column2,$column3"
+
+
+#join -a 1 -a 2 -e " " -t $'\t'"$1"*_sort.txt "$2"*_sort.txt > m_data.txt
+
+join -t $'\t' -a 1 -a 2 -e " " "$1"*_sort.txt "$2"*_sort.txt >  m_data.txt

@@ -1,0 +1,25 @@
+docker run -it --mount type=bind,source="/Users/veronicalyu/cits4407",target=/home/stud/perm mjw263/cits4407_2024:v1
+
+Questions
+Use the commands you have learned in lecture 1 to answer the following questions.
+Log into the lab container and navigate to the directory /lab/week1. Print the contents of the file you find there.
+hello_there.txt
+GENERAL KENOBI
+
+
+What does ~ mean in a file structure?
+home directory
+
+Navigate to your home directory in the lab container. You should see a directory called perm - this is the mounted directory. Create a directory inside perm called lab1. Copy the file from question 1 into lab1.
+
+
+Open File Explorer (Windows) or Finder (Mac). Navigate to the osts directory you created earlier and open it. You should see the lab1 directory created in the previous question. Add any file to lab1 (a plain text file is recommended, but any file will do).
+
+
+In your terminal window, list the contents of the lab1 directory. Can you see the file that you added in the previous step?
+
+
+Besides these labs, name one application where you think Docker would be a useful tool.
+
+Bonus: When might someone want to run Docker without the -it option?
+Note: unless otherwise specified, all future labs will assume you are logged in to the lab container. Future labs will also not hold your hand when it comes to saving files. Remember to save your work in the mounted directory.

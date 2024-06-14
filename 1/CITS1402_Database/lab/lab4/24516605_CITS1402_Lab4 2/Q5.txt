@@ -1,0 +1,3 @@
+select p.po_id,sum(i.price*p.quantity) "Total Cost"
+from po_items p natural join items i
+group by p.po_id;

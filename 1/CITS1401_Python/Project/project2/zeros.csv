@@ -1,0 +1,222 @@
+id,age,gender,time_spent_hour,engagement_score,platform,interests,country,demographics,profession,income,indebt
+4bb73d,10,male,18,38.636,linkedin,hockey,tunisia,rural,student,0,true
+6e608e,88,non-binary,23,11.987,linkedin,tennis,nauru,rural,student,0,true
+18,83,male,22,20.561,snapchat,drawing,kiribati,rural,teacher,0,true
+0a55d,63,non-binary,1,0.135,x,tennis,eritrea,urban,other,0,true
+6cf3ec0,39,female,17,26.148,x,hockey,luxembourg,rural,historian,0,false
+94,19,male,1,32.567,x,drawing,sao tome and principe,sub_urban,other,0,false
+fc2,38,male,3,15.784,facebook,tennis,zambia,sub_urban,doctor,0,false
+0e928,47,non-binary,23,17.474,snapchat,hockey,kuwait,sub_urban,student,0,true
+a2197f4,93,male,6,4.146,facebook,drawing,dominican republic,rural,teacher,0,false
+0a242,51,female,0,11.807,linkedin,drawing,united kingdom,urban,teacher,0,true
+82,66,female,6,41.564,x,hockey,azerbaijan,rural,engineer,0,true
+fa79d,22,female,22,40.978,linkedin,drawing,greece,urban,historian,0,false
+774,16,female,4,15.913,snapchat,tennis,ukraine,sub_urban,teacher,0,true
+3697,10,female,22,18.161,x,hockey,nicaragua,rural,student,0,true
+de4,18,male,15,9.817,snapchat,drawing,bulgaria,rural,doctor,0,false
+f11,33,male,14,4.941,linkedin,tennis,cuba,rural,historian,0,true
+76,44,female,21,0.954,snapchat,tennis,denmark,sub_urban,engineer,0,false
+87a,58,female,4,10.772,linkedin,drawing,new zealand,rural,doctor,0,true
+ea,85,male,5,45.107,snapchat,tennis,mozambique,rural,student,0,true
+4bbf,84,female,11,21.54,linkedin,tennis,peru,rural,other,0,true
+a51b1,97,non-binary,8,49.888,snapchat,tennis,nicaragua,sub_urban,doctor,0,false
+17ab9f,73,non-binary,15,21.033,x,drawing,french southern territories,rural,doctor,0,true
+ad52552,83,non-binary,12,10.178,facebook,drawing,spain,urban,teacher,0,false
+636c0,72,female,15,6.41,linkedin,tennis,bosnia and herzegovina,urban,student,0,false
+9e8,96,non-binary,14,30.16,linkedin,tennis,eritrea,sub_urban,other,0,true
+80,59,male,16,15.751,youtube,hockey,qatar,rural,other,0,true
+c390,35,female,8,25.884,snapchat,drawing,south georgia and the south sandwich islands,sub_urban,engineer,0,false
+cd4c6,74,non-binary,8,10.731,youtube,hockey,gambia,sub_urban,student,0,true
+bf7e6b,41,female,6,26.262,linkedin,tennis,pitcairn,urban,doctor,0,true
+119584,95,non-binary,15,33.004,facebook,drawing,israel,sub_urban,historian,0,true
+74d4ea,22,male,17,2.747,youtube,drawing,cook islands,rural,doctor,0,false
+921,56,male,10,18.96,youtube,tennis,saudi arabia,sub_urban,other,0,true
+2adad,59,non-binary,12,21.537,facebook,tennis,argentina,rural,student,0,true
+8ba1bb,48,male,14,11.102,youtube,tennis,egypt,rural,teacher,0,true
+bd5c9,51,female,21,15.575,x,hockey,kuwait,urban,other,0,false
+9d9,44,non-binary,3,18.73,facebook,tennis,curaçao,rural,historian,0,false
+908ca,42,male,21,5.363,youtube,drawing,belgium,rural,other,0,true
+9eedc2,55,male,12,32.167,snapchat,hockey,guam,rural,doctor,0,true
+ab9be5c,85,female,4,12.723,linkedin,hockey,liechtenstein,rural,teacher,0,true
+68e1,39,female,11,33.479,youtube,tennis,congo the democratic republic of the,rural,historian,0,true
+83e3496,16,female,16,7.299,linkedin,drawing,uganda,rural,student,0,true
+c7843,61,non-binary,19,36.764,youtube,tennis,sao tome and principe,sub_urban,other,0,true
+d1b,82,male,6,29.148,linkedin,drawing,monaco,urban,teacher,0,false
+e4015,7,female,3,36.971,x,hockey,bouvet island,sub_urban,student,0,true
+6da,6,female,16,13.066,linkedin,hockey,grenada,urban,doctor,0,false
+f5,88,male,16,32.621,youtube,tennis,netherlands,rural,teacher,0,true
+bdd92,52,female,7,41.5,facebook,hockey,niue,rural,engineer,0,false
+59b4c6f,94,female,7,7.712,youtube,tennis,honduras,urban,historian,0,false
+3be00b2,93,male,19,38.567,x,tennis,poland,rural,teacher,0,true
+ce,46,male,20,43.702,linkedin,tennis,chad,urban,engineer,0,true
+033e63,70,male,10,38.149,youtube,drawing,finland,rural,teacher,0,false
+baa30cd,97,non-binary,18,32.022,youtube,drawing,jersey,sub_urban,teacher,0,true
+9fc,1,male,9,38.257,facebook,tennis,azerbaijan,urban,other,0,false
+f039bd4,27,male,12,22.015,x,tennis,france,sub_urban,student,0,false
+d256,7,male,20,0.892,x,hockey,zambia,rural,other,0,false
+d691c5e,27,non-binary,3,12.71,youtube,tennis,ethiopia,sub_urban,student,0,false
+ba9250,41,female,19,7.699,x,tennis,uzbekistan,sub_urban,engineer,0,false
+96b6,66,non-binary,4,16.149,facebook,hockey,finland,rural,doctor,0,false
+4b,56,female,20,14.404,linkedin,drawing,norfolk island,urban,doctor,0,true
+cead,97,male,6,17.086,youtube,tennis,belize,rural,doctor,0,true
+2e,59,non-binary,10,37.354,linkedin,tennis,burundi,urban,engineer,0,true
+0c2,54,male,9,25.781,x,hockey,svalbard and jan mayen,urban,teacher,0,false
+03,97,female,17,46.449,linkedin,hockey,south sudan,rural,doctor,0,false
+4f4399,39,male,20,11.07,facebook,tennis,western sahara,urban,teacher,0,true
+9229,44,male,6,27.365,linkedin,drawing,united states,rural,teacher,0,false
+85217,5,male,19,14.323,snapchat,tennis,singapore,sub_urban,engineer,0,false
+ba4e87,43,male,23,36.828,linkedin,tennis,kiribati,sub_urban,student,0,false
+d555cf8,54,female,3,18.27,facebook,tennis,congo the democratic republic of the,urban,engineer,0,false
+c86655,59,male,3,28.94,linkedin,tennis,hungary,urban,student,0,false
+ecfce,70,non-binary,20,34.392,snapchat,tennis,tunisia,urban,engineer,0,true
+760,78,male,9,34.88,youtube,hockey,belarus,sub_urban,doctor,0,true
+350993,23,male,1,8.031,facebook,drawing,ukraine,sub_urban,historian,0,true
+36a5,48,non-binary,0,21.219,youtube,drawing,myanmar,sub_urban,historian,0,false
+3d3,73,female,10,21.987,linkedin,drawing,canada,rural,other,0,false
+0895e76,70,male,10,44.005,youtube,drawing,kazakhstan,rural,doctor,0,true
+a818c21,72,female,3,12.146,facebook,drawing,kenya,urban,other,0,false
+9ff60,15,non-binary,8,14.505,snapchat,drawing,mexico,sub_urban,doctor,0,true
+b4d21,4,female,20,27.592,youtube,tennis,chile,urban,doctor,0,false
+ba4,94,female,6,44.965,facebook,drawing,chad,rural,student,0,true
+12e30,79,male,18,6.517,youtube,hockey,peru,rural,student,0,true
+6094,63,male,10,8.2,snapchat,drawing,uzbekistan,urban,historian,0,true
+74c5,69,male,20,7.315,linkedin,hockey,equatorial guinea,urban,engineer,0,false
+c1c,15,female,18,41.291,youtube,drawing,western sahara,rural,student,0,false
+df9a946,61,non-binary,18,16.042,facebook,hockey,georgia,sub_urban,teacher,0,true
+33ad,77,non-binary,19,40.502,snapchat,hockey,djibouti,urban,historian,0,true
+354ce,71,non-binary,4,8.176,snapchat,tennis,curaçao,urban,engineer,0,true
+96ced,15,male,14,23.641,x,drawing,guam,sub_urban,teacher,0,true
+5415,95,non-binary,19,31.352,facebook,hockey,nauru,sub_urban,engineer,0,false
+47cc,86,non-binary,11,29.823,x,hockey,guam,urban,engineer,0,true
+35,17,male,6,11.914,linkedin,tennis,somalia,sub_urban,engineer,0,true
+aaad2,18,non-binary,12,49.952,x,tennis,united states,urban,engineer,0,false
+15fe,3,male,2,41.091,facebook,tennis,comoros,urban,historian,0,false
+7fe24,34,male,14,17.705,snapchat,hockey,jamaica,sub_urban,student,0,true
+f51,88,female,7,49.914,x,drawing,gambia,urban,doctor,0,false
+d29,33,male,20,23.242,linkedin,hockey,papua new guinea,urban,doctor,0,false
+476d091,9,female,10,25.37,linkedin,tennis,mali,urban,historian,0,true
+0896e64,27,non-binary,21,11.949,x,drawing,ecuador,sub_urban,other,0,true
+acde0a5,14,female,14,28.199,facebook,drawing,syrian arab republic,urban,historian,0,true
+1ae2,70,male,14,28.381,x,tennis,ghana,sub_urban,teacher,0,true
+341f72,14,male,13,23.378,x,drawing,new zealand,sub_urban,historian,0,false
+3141af0,12,male,3,48.897,facebook,drawing,ecuador,rural,teacher,0,false
+ebc5e33,44,male,13,46.413,snapchat,drawing,hong kong,urban,student,0,false
+9d,72,non-binary,20,28.738,snapchat,tennis,faroe islands,sub_urban,student,0,false
+9c,89,female,15,24.407,linkedin,tennis,palau,sub_urban,student,0,true
+e11c,75,non-binary,16,11.367,linkedin,drawing,french southern territories,sub_urban,historian,0,true
+b4b0,1,non-binary,23,36.307,snapchat,hockey,oman,sub_urban,doctor,0,false
+c996a37,19,non-binary,16,29.911,youtube,hockey,sudan,urban,historian,0,true
+706df0,9,female,3,15.678,facebook,hockey,åland islands,urban,historian,0,true
+e618,79,non-binary,15,32.885,youtube,tennis,christmas island,sub_urban,student,0,true
+af8,78,non-binary,15,40.443,linkedin,hockey,korea democratic people's republic of,rural,engineer,0,true
+6ba,86,male,10,35.144,youtube,drawing,libya,urban,student,0,false
+f976d7d,81,female,6,29.223,facebook,tennis,cameroon,sub_urban,teacher,0,true
+e0254,76,non-binary,18,31.965,x,hockey,brunei darussalam,rural,engineer,0,false
+f3b,88,female,18,20.909,youtube,tennis,niger,sub_urban,doctor,0,true
+97098,68,non-binary,22,40.227,youtube,hockey,morocco,rural,historian,0,false
+04,86,non-binary,22,46.189,linkedin,drawing,turkmenistan,urban,teacher,0,false
+bd,5,female,5,37.573,youtube,drawing,belgium,urban,engineer,0,true
+c6ff20,74,male,22,7.262,x,drawing,qatar,sub_urban,student,0,false
+c0e82,13,non-binary,2,45.298,x,hockey,south africa,sub_urban,other,0,false
+5ac15,27,male,7,22.843,youtube,drawing,costa rica,sub_urban,teacher,0,false
+9160f,43,male,4,1.027,youtube,tennis,greece,sub_urban,engineer,0,false
+10451,72,female,13,6.467,linkedin,tennis,israel,sub_urban,student,0,false
+9d6db2d,68,female,6,8.926,snapchat,hockey,myanmar,rural,teacher,0,false
+ccebfc,68,female,7,46.779,linkedin,tennis,monaco,sub_urban,historian,0,false
+39,17,non-binary,8,40.664,snapchat,hockey,egypt,sub_urban,engineer,0,false
+7e,78,female,16,46.472,youtube,tennis,honduras,urban,doctor,0,true
+5b5f8,45,female,14,31.335,youtube,hockey,estonia,sub_urban,teacher,0,false
+1313e,49,male,7,37.479,linkedin,hockey,korea republic of,sub_urban,teacher,0,true
+0fcf8fa,45,male,20,2.415,linkedin,tennis,north macedonia,rural,historian,0,false
+3da6,59,female,7,3.06,facebook,hockey,pitcairn,rural,student,0,false
+867dd4,56,non-binary,12,41.426,x,drawing,faroe islands,rural,doctor,0,false
+be9,4,female,3,43.468,x,hockey,french southern territories,rural,other,0,true
+1b74,62,non-binary,22,38.623,facebook,tennis,malawi,rural,doctor,0,true
+3c6b5,61,female,5,44.922,x,hockey,nauru,rural,other,0,false
+9a2c067,35,male,15,18.203,x,hockey,sierra leone,urban,historian,0,true
+e8,13,male,21,40.538,facebook,hockey,rwanda,sub_urban,student,0,true
+5ef,76,non-binary,16,27.011,snapchat,drawing,western sahara,urban,doctor,0,true
+5491b0,44,male,20,31.098,x,hockey,sweden,sub_urban,other,0,true
+91346e,5,female,9,25.19,facebook,tennis,united kingdom,urban,teacher,0,true
+e4b2,20,non-binary,20,24.537,linkedin,tennis,guinea,urban,teacher,0,true
+6f,74,female,15,18.427,facebook,hockey,gibraltar,rural,historian,0,true
+790b,2,female,18,14.663,youtube,drawing,latvia,rural,student,0,true
+c7f2,17,non-binary,6,35.836,youtube,drawing,kazakhstan,rural,other,0,false
+5ee,21,male,5,25.102,linkedin,drawing,martinique,sub_urban,student,0,true
+3ca2c,15,non-binary,15,2.998,linkedin,hockey,sierra leone,urban,student,0,false
+10e7ed6,39,female,22,38.875,youtube,tennis,romania,rural,engineer,0,false
+f2936cf,50,male,4,29.06,youtube,drawing,georgia,rural,engineer,0,false
+9bcdb,57,male,13,16.416,facebook,tennis,azerbaijan,rural,engineer,0,true
+5b4c0,18,male,18,28.731,snapchat,hockey,vanuatu,rural,engineer,0,false
+ec0,51,non-binary,2,42.666,youtube,tennis,libya,rural,engineer,0,true
+70430f7,4,male,12,15.267,linkedin,hockey,saudi arabia,sub_urban,other,0,false
+77f84,54,non-binary,17,2.231,youtube,tennis,antarctica,urban,engineer,0,true
+b58c220,5,non-binary,17,39.615,youtube,drawing,saint martin (french part),rural,other,0,false
+e0e065,73,male,2,3.262,x,tennis,guinea-bissau,sub_urban,student,0,true
+8b7,90,non-binary,6,36.223,x,drawing,antigua and barbuda,sub_urban,student,0,false
+36a7c,11,female,9,44.401,youtube,hockey,congo the democratic republic of the,rural,teacher,0,false
+0812,98,non-binary,10,37.385,x,hockey,lebanon,rural,teacher,0,true
+398f2,20,female,17,49.118,facebook,drawing,tanzania united republic of,sub_urban,historian,0,false
+4dad,32,female,20,36.636,snapchat,tennis,niue,urban,student,0,false
+52ce,29,female,7,5.115,linkedin,tennis,saint lucia,sub_urban,historian,0,false
+f6704,58,male,20,32.961,linkedin,tennis,montenegro,rural,other,0,false
+8a,31,female,17,18.917,linkedin,tennis,slovakia,urban,historian,0,false
+1e3,3,female,22,8.305,x,tennis,guam,rural,student,0,true
+a00db,31,non-binary,9,26.396,facebook,tennis,isle of man,urban,student,0,false
+d3,90,male,18,3.041,linkedin,hockey,saint pierre and miquelon,sub_urban,doctor,0,true
+607e,25,female,18,38.1,youtube,drawing,monaco,urban,student,0,false
+9b74,62,non-binary,21,26.266,facebook,hockey,norway,sub_urban,student,0,false
+9487,68,female,17,1.711,x,hockey,jordan,urban,other,0,false
+115537,74,female,3,40.704,youtube,drawing,pitcairn,urban,student,0,false
+1f5260,85,male,1,46.199,linkedin,hockey,czechia,rural,engineer,0,true
+fab,3,female,12,5.497,youtube,tennis,algeria,rural,other,0,false
+07e0,68,non-binary,15,4.136,linkedin,tennis,france,sub_urban,engineer,0,false
+fc,73,female,19,33.963,facebook,tennis,iraq,sub_urban,historian,0,false
+0d,40,male,5,40.597,snapchat,drawing,seychelles,sub_urban,teacher,0,true
+ed0868,88,male,14,38.284,youtube,drawing,azerbaijan,urban,historian,0,true
+d8f1,88,male,3,7.351,youtube,drawing,timor-leste,urban,historian,0,false
+dae,15,non-binary,23,47.315,linkedin,hockey,united kingdom,rural,student,0,false
+9ceaa3c,72,female,16,40.915,youtube,tennis,romania,rural,doctor,0,false
+36d988,28,non-binary,20,24.688,facebook,tennis,curaçao,sub_urban,teacher,0,false
+076836,48,female,10,3.996,facebook,tennis,american samoa,urban,student,0,false
+98,56,male,0,13.393,youtube,drawing,türkiye,urban,student,0,false
+259,72,non-binary,0,0.851,linkedin,drawing,taiwan province of china,rural,engineer,0,false
+57c1,61,male,18,17.728,x,drawing,barbados,sub_urban,historian,0,true
+991ec,23,male,14,10.799,youtube,tennis,grenada,urban,engineer,0,false
+45dba,92,male,1,45.336,x,tennis,mauritania,sub_urban,engineer,0,false
+89550b,46,non-binary,0,14.18,linkedin,hockey,finland,rural,doctor,0,false
+571219,1,non-binary,16,5.651,linkedin,hockey,virgin islands u.s.,rural,engineer,0,false
+482ca30,80,male,14,13.335,youtube,drawing,poland,sub_urban,student,0,false
+2a64,35,male,20,19.734,snapchat,drawing,côte d'ivoire,rural,teacher,0,true
+b23,32,male,17,39.213,youtube,drawing,antigua and barbuda,urban,student,0,false
+9a,71,non-binary,1,0.977,facebook,hockey,virgin islands u.s.,rural,student,0,true
+0f3c40f,23,male,18,13.648,x,hockey,pitcairn,rural,teacher,0,false
+5bb4,87,male,12,39.252,facebook,tennis,norway,sub_urban,historian,0,true
+b3f5c54,22,male,3,47.967,youtube,hockey,iraq,urban,engineer,0,false
+dcd9fb,26,non-binary,6,37.27,linkedin,hockey,united states minor outlying islands,rural,other,0,true
+b2,95,female,5,20.179,youtube,hockey,madagascar,sub_urban,engineer,0,false
+92,10,non-binary,5,10.226,snapchat,tennis,saudi arabia,sub_urban,other,0,false
+ad,74,male,18,41.728,youtube,drawing,marshall islands,rural,teacher,0,true
+9fdfe97,36,male,15,26.614,facebook,hockey,grenada,sub_urban,other,0,true
+92f763e,82,male,20,21.614,facebook,drawing,guinea,urban,historian,0,false
+cc2ef,34,male,23,45.921,snapchat,drawing,tajikistan,sub_urban,historian,0,false
+3dd5,50,male,3,8.615,youtube,tennis,mongolia,sub_urban,engineer,0,false
+255e8,96,female,1,34.167,facebook,tennis,senegal,urban,historian,0,false
+4caa,62,female,8,10.011,x,hockey,guyana,sub_urban,engineer,0,false
+550,59,male,1,4.324,linkedin,drawing,brunei darussalam,sub_urban,teacher,0,false
+4d93,13,female,21,18.312,linkedin,hockey,denmark,rural,teacher,0,false
+5cd3,28,male,9,16.624,facebook,tennis,mauritius,sub_urban,student,0,false
+708d,42,female,14,25.207,youtube,hockey,central african republic,rural,doctor,0,true
+34c,27,non-binary,2,11.696,x,tennis,bangladesh,urban,other,0,true
+5a,27,female,15,27.837,facebook,tennis,china,sub_urban,other,0,true
+764969,72,female,0,21.165,youtube,drawing,kyrgyzstan,urban,student,0,false
+08ffaa,40,non-binary,13,32.446,youtube,tennis,kiribati,sub_urban,teacher,0,false
+1f,32,non-binary,20,48.262,linkedin,hockey,moldova republic of,rural,student,0,false
+0bd,12,male,0,16.892,linkedin,hockey,ukraine,urban,engineer,0,true
+d27c,13,female,13,19.883,x,drawing,cameroon,urban,other,0,false
+49ec,45,male,16,8.056,facebook,tennis,gibraltar,rural,teacher,0,false
+d0299a,47,female,6,39.074,facebook,hockey,peru,sub_urban,other,0,false
+c364,38,male,20,42.12,x,hockey,nigeria,urban,doctor,0,true
+285,24,non-binary,16,45.536,snapchat,hockey,heard island and mcdonald islands,urban,teacher,0,true
+a654,1,male,9,48.618,youtube,hockey,united states minor outlying islands,sub_urban,doctor,0,false
+ea1f9,45,female,23,30.932,snapchat,hockey,korea democratic people's republic of,urban,doctor,0,false

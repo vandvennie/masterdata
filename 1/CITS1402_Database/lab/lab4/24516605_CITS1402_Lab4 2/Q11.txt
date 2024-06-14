@@ -1,0 +1,2 @@
+delete from big_jobs
+where tot_pos > 3000;

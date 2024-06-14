@@ -1,0 +1,18 @@
+id,age,gender,time_spent_hour,platform,interests,Country,demographics,profession,income,indebt
+1,50,male,1,Instagram,Sports,New Zealand,Urban,Software Engineer,280931,TRUE
+2,48,male,3,Instagram,Sports,Vietnam,Urban,Plumber,28093,TRUE
+3,47,female,1,Facebook,Travel,New Zealand,Urban,Librarian,191777,TRUE
+4,64,male,4,Instagram,Sports,Australia,Sub_Urban,CEO,259239,FALSE
+5,24,male,4,Instagram,Travel,Yemen,Urban,Plumber,78098,FALSE
+6,52,male,4,Instagram,Lifestlye,Australia,Urban,Software Engineer,235163,FALSE
+7,44,male,3,Facebook,Travel,Nigeria,Urban,Plumber,172063,TRUE
+8,61,male,1,YouTube,Sports,Mexico,Urban,Plumber,200620,TRUE
+9,56,male,2,Instagram,Sports,Mexico,Urban,Teacher,30000,TRUE
+10,50,non-binary,2,YouTube,Lifestlye,Australia,Sub_Urban,FIFO,364256,FALSE
+11,18,male,9,Instagram,Sports,Australia,Sub_Urban,Student,4708,TRUE
+12,37,female,3,YouTube,Lifestlye,New Zealand,Urban,Teacher,177388,TRUE
+13,49,non-binary,3,Facebook,Sports,Nigeria,Sub_Urban,Software Engineer,179501,FALSE
+14,28,female,2,Instagram,Lifestlye,Azerbaijan,Urban,Shopkeeper,97852,FALSE
+15,19,female,7,YouTube,Travel,Yemen,Rural,Student,8034,TRUE
+16,25,male,4,Facebook,Sports,New Zealand,Sub_Urban,CEO,101123,TRUE
+17,47,male,2,Instagram,Travel,Nigeria,Sub_Urban,Librarian,18719,TRUE

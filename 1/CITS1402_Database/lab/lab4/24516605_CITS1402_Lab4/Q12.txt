@@ -1,0 +1,2 @@
+alter table big_jobs
+add column assigned char(1) default 'U';

@@ -1,0 +1,33 @@
+awk 'BEGIN {
+    FS="\t"
+    OFS="\t"
+    a=1
+} 
+NR==1 {
+    print $0
+    for (i = 1; i <= NF; i++) {
+        if (tolower($i) ~ /^cantril/) {  
+            column_cantril = i
+        }
+        if (tolower($i) == "year") {
+            column_year = i
+        }
+    }
+}
+NR > 1 {
+    if ($column_cantril != "") {
+        if (!($column_year in year)) {
+            year[a] = $column_year
+            a += 1
+        }
+    }
+}
+NR > 1 {
+    for (i in year) {
+        if ($column_year == year[i]) {
+            print $0
+        }
+    }
+}' cleaned_data.txt | sed 's/\t$//' > "cleaned_data_ncan.txt"
+
+

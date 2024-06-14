@@ -1,0 +1,81 @@
+insert into Client values ('10000001', 'liang', 'bobo', 'Mr', '11 Towning St', '6062', '0493888444', NULL, NULL, '76548797@qq.com', '2022-4-1','abc111111111', '00000001');
+insert into Client values ('10000002', 'tian', 'bibi', 'Miss', '14/12 Hay St', '6002', NULL, NULL, NULL, NULL, '2022-7-2','abc222222222', '00000003');
+insert into Client values ('10000003', 'ku', 'mao', 'Mr', '76 Harbour St', '1023', '0438194721', NULL, NULL, 'maoku11111@163.com', NULL, NULL, NULL);
+insert into Client values ('10000004', 'spencer', 'lilith', 'Mrs', '99 Edith St', '3020', NULL, NULL, NULL, NULL, '1993-2-1','abc4444444444', '00000005');
+insert into Client values ('10000005', 'chen', 'gary', 'Mr', '99 Edith St', '3020', '0493739888', NULL, NULL, '493876162@qq.com', NULL, NULL, NULL);
+insert into Client values ('10000006', 'perth', 'embleton', 'Mr', '22 akon St', '4900', '0493734567', NULL, NULL, '7652w22e@qq.com', '2018-7-1','abc666666666', '00000006');
+
+
+insert into Room values ('101');
+insert into Room values ('102');
+insert into Room values ('201');
+insert into Room values ('202');
+
+
+
+insert into Surgeon values ('A1', 'Joe','Keogh', 'Mr', '01224-861212','Bachelor''s Degree','Medical License','RANZCO');
+insert into Surgeon values ('A2', 'Carol','Farrel', 'Miss', '0141-357-7419','Bachelor''s Degree','Medical License','RANZCO');
+insert into Surgeon values ('B1', 'Tina','Murphy', 'Mrs', '0141-943-1728','Bachelor''s Degree','Medical License',NULL);
+insert into Surgeon values ('B2', 'Tony','Shaw', 'Mr', '0141-225-7025','Bachelor''s Degree','Medical License',NULL);
+insert into Surgeon values ('C2', 'Mary','Tregear', 'Miss', '0141-225-7025','Bachelor''s Degree','Medical License');
+
+
+insert into Service values ('CR01','Comprehensive Eye Exams',425.00);
+insert into Service values ('CR02','Prescription Eyeglasses and Contact Lenses',350.00);
+insert into Service values ('CR03','Refractive Surgery Consultations',750.00);
+insert into Service values ('CR04','Pediatric Eye Care',600.00);
+insert into Service values ('CR05','Low Vision Services',300.00);
+insert into Service values ('CR06','Emergency Eye Care',200.00);
+
+insert into Appointment values ('10000001', '101', 'A1','2024-01-02','09:00:00');
+insert into Appointment values ('10000002', '102', 'A1','2024-04-11','09:00:00');
+insert into Appointment values ('10000002', '102', 'A2','2024-04-11','13:00:00');
+insert into Appointment values ('10000004', '201', 'B1','2024-11-16','09:00:00');
+insert into Appointment values ('10000006', '101', 'C1','2024-03-07','09:00:00');
+
+insert into Works_In values ('A1', '101');
+insert into Works_In values ('A1', '102');
+insert into Works_In values ('A2', '102');
+insert into Works_In values ('A2', '202');
+insert into Works_In values ('B1', '201');
+insert into Works_In values ('B1', '202');
+insert into Works_In values ('B2', '101');
+insert into Works_In values ('B2', '202');
+insert into Works_In values ('C1', '101');
+
+insert into Giving  values ('A1', 'CR01');
+insert into Giving  values ('A1', 'CR02');
+insert into Giving  values ('A1', 'CR03');
+insert into Giving  values ('A1', 'CR04');
+insert into Giving  values ('A1', 'CR05');
+insert into Giving  values ('A2', 'CR02');
+insert into Giving  values ('A2', 'CR03');
+insert into Giving  values ('B1', 'CR03');
+insert into Giving  values ('B1', 'CR04');
+insert into Giving  values ('B1', 'CR05');
+insert into Giving  values ('B2', 'CR02');
+insert into Giving  values ('B2', 'CR03');
+insert into Giving  values ('C1', 'CR04');
+insert into Giving  values ('C1', 'CR06');
+
+insert into Requiring values ('10000001','A1','2024-01-02','CR01',353.10);
+insert into Requiring values ('10000001','A1','2024-01-02','CR02',172.29);
+insert into Requiring values ('10000001','A1','2024-01-02','CR03',376.20);
+insert into Requiring values ('10000001','A1','2024-01-02','CR04',10.00);
+insert into Requiring values ('10000001','A1','2024-01-02','CR05',53.10);
+
+insert into Requiring values ('10000002','A1','2024-04-11','CR01', '98.40');
+insert into Requiring values ('10000002','A1','2024-04-11','CR03', '12.92');
+insert into Requiring values ('10000002','A2','2024-04-11','CR02', '298.40');
+insert into Requiring values ('10000002','A2','2024-04-11','CR03', '182.92');
+
+insert into Requiring values ('10000004','B1','2024-11-16','CR04','172.22');
+insert into Requiring values ('10000004','B1','2024-11-16','CR05','400.50');
+
+insert into Requiring values ('10000006','C1','2024-03-07','CR06','187.42');
+
+insert into Invoice values ('10001', '10000001', 'A1','2024-01-02','2024-01-02 10:00:00',NULL,'P',964.69);
+insert into Invoice values ('10002', '10000002', 'A1','2024-04-11','2024-04-11 11:00:00','Very Good','C',111.32);
+insert into Invoice values ('10003', '10000002', 'A2','2024-04-11','2024-04-11 14:00:00',NULL,'B',481.32);
+insert into Invoice values ('10004', '10000004', 'B1','2024-11-16','2024-11-16 10:00:00',NULL,'B',572.72);
+insert into Invoice values ('10005', '10000006', 'C1','2024-03-07','2024-11-16 10:00:00',NULL,'B',187.42);

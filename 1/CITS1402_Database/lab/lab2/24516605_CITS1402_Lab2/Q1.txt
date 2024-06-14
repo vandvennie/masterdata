@@ -1,0 +1,4 @@
+select cust_id,name,phone 
+from publishers 
+where creditcode='D';
+

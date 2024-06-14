@@ -1,0 +1,16 @@
+drop table if exists big_jobs;
+
+create table big_jobs (
+job_id char(3) NOT NULL,
+cust_id char(3) NOT NULL,
+jobtype char(1) NOT NULL,
+tot_pos float,
+PRIMARY KEY (job_id,cust_id)
+);
+
+INSERT INTO big_jobs (job_id,cust_id,jobtype,tot_pos)
+select b.job_id,b.cust_id,b.jobtype,sum(i.price*p.quantity) total
+from bookjobs b join po_items p on b.job_id=p.job_id
+join items i on p.item_id=i.item_id
+group by b.job_id,b.cust_id,b.jobtype
+having total>=300;

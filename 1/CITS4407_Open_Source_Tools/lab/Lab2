@@ -1,0 +1,67 @@
+Lab 2
+What does open source mean? How is that different from free-to-use?
+-A software whose source code is freely available to the public
+-free to use is a application can use if for free.
+
+What are the two meanings of / in the file path /lab/week2/thing.txt?
+-means path and directory
+
+What is the absolute path of the home directory of the user stud?
+-/~
+What is the file called ‘.’  ? How is this different to a file called .stuff?
+-the current working directory
+
+Create a directory called week2 in the mounted directory if you haven't already. Then create a file in week2 using the following command:
+/usr/games/cowsay "MOO" > lol.txt
+-cowsay 程序生成一个 ASCII 艺术的小牛，牛会说出 "MOO"
+/usr/games/cowsay：这是 cowsay 程序的路径
+
+Print the first 3 lines of lol.txt using a command ("print" means "display in the terminal", not "send to a printer").
+-head -3 lol.txt
+
+Print the last line of lol.txt using a command
+-tail -1 lol.txt
+
+How many lines are in lol.txt?
+-wc -l lol.txt
+
+What is the difference between cat lol.txt and head lol.txt? Would this change on a larger file?
+-cat shows all contexts of fils, head just shows first 10 line
+
+How many files are in /lab/week2? Don't count . or .. (why are we ignoring these?).
+??
+
+What does the -p option mean for ls?
+it adds a slash / character to the end of directory names and a * character to the end of executable files.
+
+List the contents of /lab/week2 in size order. Which is largest?
+Alice_in_Wonderland.txtl
+
+What command would you use to copy Alice_in_Wonderland.txt from /lab/week2 to your mounted directory?
+-cp Alice_in_Wonderland.txt ~/perm/week2
+
+How many words are in Alice_in_Wonderland.txt?
+wc -m Alice_in_Wonderland.txt
+160786  
+
+Open Alice_in_Wonderland.txt using the less. In less:
+-more 
+
+Space bar goes one page ahead, b goes one page back
+G goes to end of file, gg goes to the start
+To go to a line number, type the line number then G 
+To search for a string, type / then the string, then press enter. 
+Press n to cycle through results or N to cycle backwards.????
+
+Using less, answer the following:
+What chapter begins on line 1252?
+CHAPTER VI.
+
+What food is described as rich and green?
+Beautiful Soup
+
+How many times does the word "verdict" appear???
+
+You've decided you don't want to keep a whole book in your mounted directory. 
+How can you remove Alice_in_Wonderland.txt from your mounted directory?
+-rm ~/perm/week2/Alice_in_Wonderland.txt

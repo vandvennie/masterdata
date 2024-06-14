@@ -1,0 +1,4 @@
+select p.cust_id,p.name,b.job_id,b.descr from publishers p,bookjobs b 
+where p.cust_id=b.cust_id
+and b.job_id not null
+order by p.cust_id;

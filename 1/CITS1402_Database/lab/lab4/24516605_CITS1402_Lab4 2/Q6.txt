@@ -1,0 +1,2 @@
+select distinct p.cust_id,p.name from publishers p join bookjobs b on p.cust_id=b.cust_id
+where b.job_id not null;

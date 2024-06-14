@@ -1,0 +1,1 @@
+select * from publishers where cust_id not in (select distinct cust_id from bookjobs left join pos on bookjobs.job_id=pos.job_id where pos.vendor_id="ABC");

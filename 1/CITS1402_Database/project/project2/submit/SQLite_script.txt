@@ -1,0 +1,290 @@
+/*Student Name: Geliang Liang	  Student ID: 24139871*/
+/*Student Name: Zhulin Lyu	      Student ID: 24516605*/
+
+
+/* Drop tables if it exists*/
+DROP TABLE IF EXISTS Client;
+DROP TABLE IF EXISTS CustomerInfo;
+DROP TABLE IF EXISTS PatientInfo;
+DROP TABLE IF EXISTS Room;
+DROP TABLE IF EXISTS Surgeon;
+DROP TABLE IF EXISTS Service;
+DROP TABLE IF EXISTS Works_In;
+DROP TABLE IF EXISTS Giving;
+DROP TABLE IF EXISTS Appointment;
+DROP TABLE IF EXISTS Requiring;
+DROP TABLE IF EXISTS Invoice;
+
+
+/* Create some entities*/
+CREATE TABLE Client (
+    clientNumber        INT PRIMARY KEY,
+    familyName          VARCHAR(20)     NOT NULL,
+    personalName        VARCHAR(20)     NOT NULL,
+    title               VARCHAR(4)      NOT NULL,
+    streetAddress       VARCHAR(45)     NOT NULL,
+    postCode            CHAR(4)         NOT NULL,
+    clientStatus        CHAR(1) NOT NULL CHECK (clientStatus IN ('C', 'B', 'P'))
+);
+
+CREATE TABLE CustomerInfo (
+    clientNumber        INT PRIMARY KEY,
+    contactPhoneNumber1 VARCHAR(14)     NOT NULL,
+    contactPhoneNumber2 VARCHAR(14),
+    contactPhoneNumber3 VARCHAR(14),
+    emailAddress        VARCHAR(30)     NOT NULL,
+    UNIQUE(contactPhoneNumber1),
+    UNIQUE(emailAddress),
+    FOREIGN KEY (clientNumber) REFERENCES Client(clientNumber)
+);
+
+CREATE TABLE PatientInfo (
+    clientNumber        INT PRIMARY KEY,
+    birthDate           DATE            NOT NULL,
+    medicareNumber      VARCHAR(12)     NOT NULL,
+    billPayerNumber     INT             NOT NULL,
+    UNIQUE(medicareNumber),
+    FOREIGN KEY (clientNumber) REFERENCES Client(clientNumber),
+    FOREIGN KEY (billPayerNumber) REFERENCES Client(clientNumber)
+);
+
+CREATE TABLE Room (
+    uniqueNumber             INT PRIMARY KEY
+);
+
+CREATE TABLE Surgeon (
+    uniqueIdentifierCode    CHAR(2) PRIMARY KEY,
+    personalName            VARCHAR(20) NOT NULL,
+    familyName              VARCHAR(20) NOT NULL,
+    title                   VARCHAR(4)  NOT NULL,
+    contactPhoneNumber      CHAR(14)    NOT NULL,
+    qualifications1         VARCHAR(10) NOT NULL,
+    qualifications2         VARCHAR(10),
+    qualifications3         VARCHAR(10)
+);
+
+CREATE TABLE Service (
+    prescribedCode          CHAR(4) PRIMARY KEY,
+    description             VARCHAR(20),
+    currentServiceFee       DECIMAL(3, 2) NOT NULL
+);
+
+CREATE TABLE Works_In (
+    uniqueIdentifierCode    CHAR(2)     NOT NULL,
+    preferredRoom           INT         NOT NULL,
+    PRIMARY KEY (uniqueIdentifierCode, preferredRoom),
+    FOREIGN KEY (uniqueIdentifierCode) REFERENCES Surgeon(uniqueIdentifierCode) ON UPDATE CASCADE ON DELETE NO ACTION,
+    FOREIGN KEY (preferredRoom) REFERENCES Room(uniqueNumber) ON UPDATE CASCADE ON DELETE NO ACTION
+);
+
+
+CREATE TABLE Giving (
+    uniqueIdentifierCode    CHAR(2)     NOT NULL,
+    prescribedCode          CHAR(4)     NOT NULL,
+    PRIMARY KEY (uniqueIdentifierCode, prescribedCode),
+    FOREIGN KEY (uniqueIdentifierCode) REFERENCES Surgeon(uniqueIdentifierCode) ON UPDATE CASCADE ON DELETE NO ACTION,
+    FOREIGN KEY (prescribedCode) REFERENCES Service(prescribedCode) ON UPDATE CASCADE ON DELETE NO ACTION
+);
+
+CREATE TABLE Appointment(
+    clientNumber             INT        NOT NULL,
+    uniqueNumber             INT        NOT NULL,
+    uniqueIdentifierCode     CHAR(2)    NOT NULL,
+    date                     DATE,
+    startTime                TIME,
+    PRIMARY KEY (clientNumber, uniqueIdentifierCode, date),
+    FOREIGN KEY (clientNumber) REFERENCES Client(clientNumber) ON UPDATE CASCADE ON DELETE NO ACTION,
+    FOREIGN KEY (uniqueNumber) REFERENCES Room(uniqueNumber) ON UPDATE CASCADE ON DELETE NO ACTION,
+    FOREIGN KEY (uniqueIdentifierCode) REFERENCES Surgeon(uniqueIdentifierCode) ON UPDATE CASCADE ON DELETE NO ACTION,
+    UNIQUE (uniqueIdentifierCode, date, startTime ),
+    UNIQUE (uniqueNumber, date, startTime )
+);
+
+CREATE TABLE Requiring (
+    clientNumber             INT        NOT NULL,
+    uniqueIdentifierCode     CHAR(2)    NOT NULL,
+    date                     DATE       NOT NULL,
+    prescribedCode           CHAR(4)    NOT NULL,
+    actualFee                DECIMAL(3, 4) NOT NULL,
+    PRIMARY KEY (clientNumber, uniqueIdentifierCode, date, prescribedCode),
+    FOREIGN KEY (clientNumber) REFERENCES Appointment(clientNumber) ON UPDATE CASCADE ON DELETE NO ACTION,
+    FOREIGN KEY (uniqueIdentifierCode) REFERENCES Appointment(uniqueIdentifierCode) ON UPDATE CASCADE ON DELETE NO ACTION,
+    FOREIGN KEY (date) REFERENCES Appointment(date) ON UPDATE CASCADE ON DELETE NO ACTION,
+    FOREIGN KEY (prescribedCode) REFERENCES Service(prescribedCode) ON UPDATE CASCADE ON DELETE NO ACTION
+);
+
+CREATE TABLE Invoice(
+    uniqueInvoiceNumber      INTEGER PRIMARY KEY AUTOINCREMENT,
+    clientNumber             INT        NOT NULL,
+    uniqueIdentifierCode     CHAR(2)    NOT NULL,
+    appointmentDate          DATE       NOT NULL,
+    relevantDate             DATE       NOT NULL,
+    clinicalComment          VARCHAR(200),
+    status                   CHAR(1) NOT NULL CHECK (status IN ('C', 'B', 'P')),
+    totalFee                 DECIMAL(4, 2) NOT NULL,
+    FOREIGN KEY (clientNumber) REFERENCES Appointment(clientNumber) ON UPDATE CASCADE ON DELETE NO ACTION,
+    FOREIGN KEY (appointmentDate) REFERENCES Appointment(date) ON UPDATE CASCADE ON DELETE NO ACTION,
+    FOREIGN KEY (uniqueIdentifierCode) REFERENCES Appointment(uniqueIdentifierCode) ON UPDATE CASCADE ON DELETE NO ACTION
+);
+
+
+/* Insert some sample data*/
+insert into Client values ('10000001', 'Liang', 'Bobo', 'Mr', '11 Towning St', '6062', 'B');
+insert into Client values ('10000002', 'Tian', 'Bibi', 'Miss', '14/12 Hay St', '6002', 'P');
+insert into Client values ('10000003', 'Ku', 'Mao', 'Mr', '76 Harbour St', '1023', 'C');
+insert into Client values ('10000004', 'Spencer', 'Lilith', 'Mrs', '99 Edith St', '3020', 'P');
+insert into Client values ('10000005', 'Chen', 'Gary', 'Mr', '99 Edith St', '3020', 'C');
+insert into Client values ('10000006', 'Perth', 'Embleton', 'Mr', '22 akon St', '4900', 'B');
+
+
+insert into CustomerInfo values ('10000001', '0493888444', NULL, NULL, '76548797@qq.com');
+insert into CustomerInfo values ('10000003', '0438194721', NULL, NULL, 'maoku11111@163.com');
+insert into CustomerInfo values ('10000005', '0493739888', NULL, NULL, '493876162@qq.com');
+insert into CustomerInfo values ('10000006', '0493734567', NULL, NULL, '7652w22e@qq.com');
+
+
+insert into PatientInfo values ('10000001', '2022-4-1','abc111111111', '10000001');
+insert into PatientInfo values ('10000002', '2022-7-2','abc222222222', '10000003');
+insert into PatientInfo values ('10000004', '1993-2-1','abc444444444', '10000005');
+insert into PatientInfo values ('10000006', '2018-7-1','abc666666666', '10000006');
+
+
+insert into Room values ('101');
+insert into Room values ('102');
+insert into Room values ('201');
+insert into Room values ('202');
+
+
+insert into Surgeon values ('A1', 'Joe','Keogh', 'Mr', '01224-861212','Bachelor''s Degree','Medical License','RANZCO');
+insert into Surgeon values ('A2', 'Carol','Farrel', 'Miss', '0141-357-7419','Bachelor''s Degree','Medical License','RANZCO');
+insert into Surgeon values ('B1', 'Tina','Murphy', 'Mrs', '0141-943-1728','Bachelor''s Degree','Medical License',NULL);
+insert into Surgeon values ('B2', 'Tony','Shaw', 'Mr', '0141-225-7025','Bachelor''s Degree','Medical License',NULL);
+insert into Surgeon values ('C2', 'Mary','Tregear', 'Miss', '0141-225-7025','Bachelor''s Degree','Medical License',NULL);
+
+
+insert into Service values ('CR01','Comprehensive Eye Exams',425.00);
+insert into Service values ('CR02','Prescription Eyeglasses and Contact Lenses',350.00);
+insert into Service values ('CR03','Refractive Surgery Consultations',750.00);
+insert into Service values ('CR04','Pediatric Eye Care',600.00);
+insert into Service values ('CR05','Low Vision Services',300.00);
+insert into Service values ('CR06','Emergency Eye Care',90.00);
+
+
+insert into Works_In values ('A1', '101');
+insert into Works_In values ('A1', '102');
+insert into Works_In values ('A2', '102');
+insert into Works_In values ('A2', '202');
+insert into Works_In values ('B1', '201');
+insert into Works_In values ('B1', '202');
+insert into Works_In values ('B2', '101');
+insert into Works_In values ('B2', '202');
+insert into Works_In values ('C1', '101');
+
+
+insert into Giving  values ('A1', 'CR01');
+insert into Giving  values ('A1', 'CR02');
+insert into Giving  values ('A1', 'CR03');
+insert into Giving  values ('A1', 'CR04');
+insert into Giving  values ('A1', 'CR05');
+insert into Giving  values ('A2', 'CR02');
+insert into Giving  values ('A2', 'CR03');
+insert into Giving  values ('B1', 'CR03');
+insert into Giving  values ('B1', 'CR04');
+insert into Giving  values ('B1', 'CR05');
+insert into Giving  values ('B2', 'CR02');
+insert into Giving  values ('B2', 'CR03');
+insert into Giving  values ('C1', 'CR04');
+insert into Giving  values ('C1', 'CR06');
+
+
+insert into Appointment values ('10000001', '101', 'A1','2024-01-02','09:00:00');
+insert into Appointment values ('10000002', '102', 'A1','2024-04-11','09:00:00');
+insert into Appointment values ('10000002', '102', 'A2','2024-04-11','13:00:00');
+insert into Appointment values ('10000004', '201', 'B1','2024-02-16','09:00:00');
+insert into Appointment values ('10000006', '101', 'C1','2024-03-07','09:00:00');
+
+
+insert into Requiring values ('10000001','A1','2024-01-02','CR01',353.10);
+insert into Requiring values ('10000001','A1','2024-01-02','CR02',172.29);
+insert into Requiring values ('10000001','A1','2024-01-02','CR03',376.20);
+insert into Requiring values ('10000001','A1','2024-01-02','CR04',10.00);
+insert into Requiring values ('10000001','A1','2024-01-02','CR05',53.10);
+
+insert into Requiring values ('10000002','A1','2024-04-11','CR01', '98.40');
+insert into Requiring values ('10000002','A1','2024-04-11','CR03', '12.92');
+insert into Requiring values ('10000002','A2','2024-04-11','CR02', '298.40');
+insert into Requiring values ('10000002','A2','2024-04-11','CR03', '182.92');
+
+insert into Requiring values ('10000004','B1','2024-02-16','CR04','172.22');
+insert into Requiring values ('10000004','B1','2024-02-16','CR05','400.50');
+
+insert into Requiring values ('10000006','C1','2024-03-07','CR06','187.42');
+
+
+INSERT INTO Invoice (uniqueInvoiceNumber, clientNumber, uniqueIdentifierCode, appointmentDate, relevantDate, clinicalComment, status, totalFee)
+values('10001', '10000001', 'A1','2024-01-02','2024-01-02 10:00:00',NULL,'P',(SELECT SUM(actualFee) FROM appointment a
+LEFT JOIN requiring r ON a.clientNumber = r.clientNumber AND a.uniqueIdentifierCode = r.uniqueIdentifierCode AND a.Date = r.date
+where a.clientNumber ='10000001' and
+a.uniqueIdentifierCode = 'A1' and
+a.Date = '2024-01-02'
+GROUP BY a.clientNumber, a.uniqueIdentifierCode, a.Date));
+
+INSERT INTO Invoice (uniqueInvoiceNumber, clientNumber, uniqueIdentifierCode, appointmentDate, relevantDate, clinicalComment, status, totalFee)
+values('10002', '10000002', 'A1','2024-04-11','2024-04-11 11:00:00','Very Good','C',(SELECT SUM(actualFee) FROM appointment a
+LEFT JOIN requiring r ON a.clientNumber = r.clientNumber AND a.uniqueIdentifierCode = r.uniqueIdentifierCode AND a.Date = r.date
+where a.clientNumber ='10000002' and
+a.uniqueIdentifierCode = 'A1' and
+a.Date = '2024-04-11'
+GROUP BY a.clientNumber, a.uniqueIdentifierCode, a.Date));
+
+INSERT INTO Invoice (uniqueInvoiceNumber, clientNumber, uniqueIdentifierCode, appointmentDate, relevantDate, clinicalComment, status, totalFee)
+values('10003', '10000002', 'A2','2024-04-11','2024-04-11 14:00:00',NULL,'B',(SELECT SUM(actualFee) FROM appointment a
+LEFT JOIN requiring r ON a.clientNumber = r.clientNumber AND a.uniqueIdentifierCode = r.uniqueIdentifierCode AND a.Date = r.date
+where a.clientNumber ='10000002' and
+a.uniqueIdentifierCode = 'A2' and
+a.Date = '2024-04-11'
+GROUP BY a.clientNumber, a.uniqueIdentifierCode, a.Date));
+
+INSERT INTO Invoice (uniqueInvoiceNumber, clientNumber, uniqueIdentifierCode, appointmentDate, relevantDate, clinicalComment, status, totalFee)
+values('10004', '10000004', 'B1','2024-02-16','2024-02-16 10:00:00',NULL,'P',(SELECT SUM(actualFee) FROM appointment a
+LEFT JOIN requiring r ON a.clientNumber = r.clientNumber AND a.uniqueIdentifierCode = r.uniqueIdentifierCode AND a.Date = r.date
+where a.clientNumber ='10000004' and
+a.uniqueIdentifierCode = 'B1' and
+a.Date = '2024-02-16'
+GROUP BY a.clientNumber, a.uniqueIdentifierCode, a.Date));
+
+INSERT INTO Invoice (uniqueInvoiceNumber, clientNumber, uniqueIdentifierCode, appointmentDate, relevantDate, clinicalComment, status, totalFee)
+values('10005', '10000006', 'C1','2024-03-07','2024-03-07 10:00:00',NULL,'B',(SELECT SUM(actualFee) FROM appointment a
+LEFT JOIN requiring r ON a.clientNumber = r.clientNumber AND a.uniqueIdentifierCode = r.uniqueIdentifierCode AND a.Date = r.date
+where a.clientNumber ='10000006' and
+a.uniqueIdentifierCode = 'C1' and
+a.Date = '2024-03-07'
+GROUP BY a.clientNumber, a.uniqueIdentifierCode, a.Date));
+
+
+/* Views with the given names*/
+DROP VIEW IF EXISTS pendingFee;
+DROP VIEW IF EXISTS stats;
+DROP VIEW IF EXISTS expensiveServices;
+
+create view pendingFee As
+select c.personalName as patientPersonalName,c.familyName as patientFamilyName,
+cc.personalName as payerPersonalName,cc.familyName as payerFamilyName,
+i.totalFee pendingFee,
+ci.contactPhoneNumber1 contactPhoneNumber,c.streetAddress
+from invoice i
+join client c on i.clientNumber=c.clientNumber
+join PatientInfo p on i.clientNumber=p.clientNumber
+join CustomerInfo ci on p.billPayerNumber=ci.clientNumber
+join client cc on cc.clientNumber=ci.clientNumber
+where i.status='B' or i.status='C';
+
+create view stats as
+select c.familyName,c.personalName, s.familyName surgeonFamilyName,s.qualifications1 qualifications
+from client c 
+join Appointment a on c.clientNumber=a.clientNumber
+join Surgeon s on a.uniqueIdentifierCode=s.uniqueIdentifierCode
+where a.date between '2024-01-01' and '2024-01-31';
+
+create view expensiveServices as 
+select * from Service where currentServiceFee>100;

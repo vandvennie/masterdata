@@ -1,0 +1,6 @@
+drop view if exists nc_jobs;
+
+create view nc_jobs as 
+select bookjobs.* from bookjobs 
+left join publishers on bookjobs.cust_id=publishers.cust_id
+where jobtype='N' and creditcode='C';

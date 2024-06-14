@@ -1,0 +1,216 @@
+#!/bin/bash
+#clean
+awk '
+    BEGIN {
+        FS="\t"
+        OFS="\t"
+    }
+    NR == 1 {
+        print $0
+    }
+    NR > 1 {
+        if (length($4) > 0 && length($5) > 0 && length($6) > 0 && length($7) > 0 && length($8) > 0) {
+            print $0
+        }
+    }
+' "$1" | sed 's/\t$//' > "$1_cell.txt"
+
+value_entity=$(awk '
+    BEGIN {
+        FS="\t"
+        OFS="\t"
+        x=1     # 初始化数组索引
+    }
+    NR > 1 {
+        if (!($1 in value_entity)) {
+            value_entity[$1] = x
+            x = x + 1
+        }
+        
+    }
+    END {
+        # 输出数组元素，每个元素占一行
+        for (i in value_entity) {
+            print i
+    }
+}
+' "$1_cell.txt" | sed 's/\t$//')
+
+IFS=$'\n' read -r -d '' -a entities <<< "$value_entity"
+
+# 删除已经存在的文件
+rm -rf  "gdp" "population" "homicide" "life_expectancy"
+
+#g
+for entity in "${entities[@]}"
+do
+    awk -v entity="$entity" '
+        BEGIN {
+            FS="\t"
+            OFS="\t"
+            i = 0
+            sum_xy = 0
+            sum_x = 0
+            sum_y = 0
+            sum_xx = 0
+            sum_yy = 0
+        }
+
+        NR > 1 {
+            # 将每个国家的数据存储在对应的数组中
+            if ($1 == entity) {
+                sum_xy = sum_xy + ($4 * $8)
+                sum_x = sum_x + ($4)
+                sum_y = sum_y + ($8)
+                sum_xx = sum_xx + ($4 * $4)
+                sum_yy = sum_yy + ($8 * $8)
+                i = i + 1
+            }
+        }
+
+        END {
+            # 如果有至少3个预测-值对
+            if (i >= 3) {
+                up = (i * sum_xy) - (sum_x * sum_y)
+                down = sqrt((i * sum_xx - sum_x^2) * (i * sum_yy - sum_y^2))
+                cor_gdp = up / down
+                print "GDP: ", entity, cor_gdp >> "gdp"
+            }
+        }' "$1_cell.txt"
+done  
+
+#Population
+for entity in "${entities[@]}"
+do
+    awk -v entity="$entity" '
+        BEGIN {
+            FS="\t"
+            OFS="\t"
+            i = 0
+            sum_xy = 0
+            sum_x = 0
+            sum_y = 0
+            sum_xx = 0
+            sum_yy = 0
+        }
+
+        NR > 1 {
+            # 将每个国家的数据存储在对应的数组中
+            if ($1 == entity) {
+                sum_xy = sum_xy + ($5 * $8)
+                sum_x = sum_x + ($5)
+                sum_y = sum_y + ($8)
+                sum_xx = sum_xx + ($5 * $5)
+                sum_yy = sum_yy + ($8 * $8)
+                i = i + 1
+            }
+        }
+
+        END {
+            # 如果有至少3个预测-值对
+            if (i >= 3) {
+                up = (i * sum_xy) - (sum_x * sum_y)
+                down = sqrt((i * sum_xx - sum_x^2) * (i * sum_yy - sum_y^2))
+                cor_pop = up / down
+                print "Population: ", entity, cor_pop >> "population"
+            }
+        }' "$1_cell.txt"
+done
+
+#Homicide
+for entity in "${entities[@]}"
+do
+    awk -v entity="$entity" '
+        BEGIN {
+            FS="\t"
+            OFS="\t"
+            i = 0
+            sum_xy = 0
+            sum_x = 0
+            sum_y = 0
+            sum_xx = 0
+            sum_yy = 0
+        }
+
+        NR > 1 {
+            # 将每个国家的数据存储在对应的数组中
+            if ($1 == entity) {
+                sum_xy = sum_xy + ($6 * $8)
+                sum_x = sum_x + ($6)
+                sum_y = sum_y + ($8)
+                sum_xx = sum_xx + ($6 * $6)
+                sum_yy = sum_yy + ($8 * $8)
+                i = i + 1
+            }
+        }
+
+        END {
+            # 如果有至少3个预测-值对
+            if (i >= 3) {
+                up = (i * sum_xy) - (sum_x * sum_y)
+                down = sqrt((i * sum_xx - sum_x^2) * (i * sum_yy - sum_y^2))
+                cor_homicide = up / down
+                print "Homicide: ", entity, cor_homicide >> "homicide"
+            }
+        }' "$1_cell.txt"
+done
+
+#Life expectancy
+for entity in "${entities[@]}"
+do
+    awk -v entity="$entity" '
+        BEGIN {
+            FS="\t"
+            OFS="\t"
+            i = 0
+            sum_xy = 0
+            sum_x = 0
+            sum_y = 0
+            sum_xx = 0
+            sum_yy = 0
+        }
+
+        NR > 1 {
+            # 将每个国家的数据存储在对应的数组中
+            if ($1 == entity) {
+                sum_xy = sum_xy + ($7 * $8)
+                sum_x = sum_x + ($7)
+                sum_y = sum_y + ($8)
+                sum_xx = sum_xx + ($7 * $7)
+                sum_yy = sum_yy + ($8 * $8)
+                i = i + 1
+            }
+        }
+
+        END {
+            # 如果有至少3个预测-值对
+            if (i >= 3) {
+                up = (i * sum_xy) - (sum_x * sum_y)
+                down = sqrt((i * sum_xx - sum_x^2) * (i * sum_yy - sum_y^2))
+                cor_life = up / down
+                print "Life expectancy: ", entity, cor_life >> "life_expectancy"
+            }
+        }' "$1_cell.txt"
+done
+
+gdp_line=$(wc -l < "gdp" | awk '{print $1}')
+population_line=$(wc -l < "population" | awk '{print $1}')
+homicide_line=$(wc -l < "homicide" | awk '{print $1}')
+life_expectancy_line=$(wc -l < "life_expectancy" | awk '{print $1}')
+
+gdp=$(awk -F '\t' -v lines="$gdp_line" '{sum += $3} END {print sum/lines}' "gdp")
+population=$(awk -F '\t' -v lines="$population_line" '{sum += $3} END {print sum/lines}' "population")
+homicide=$(awk -F '\t' -v lines="$homicide_line" '{sum += $3} END {print sum/lines}' "homicide")
+life_expectancy=$(awk -F '\t' -v lines="$life_expectancy_line" '{sum += $3} END {print sum/lines}' "life_expectancy")
+
+#echo "$gdp" | awk '{print abs($1)}'
+
+
+echo "Mean correlation of Homicide Rate with Cantril ladder is $homicide"
+echo "Mean correlation of GDP with Cantril ladder is $gdp"
+echo "Mean correlation of Population with Cantril ladder is $population"
+echo "Mean correlation of Life Expectancy with Cantril ladder is $life_expectancy"
+echo "Most predictive mean correlation with the Cantril ladder is Population (r = $life_expectancy)"
+
+#rm -rf "gdp" "population" "homicide" "life_expectancy"
+#rm -rf "$1_cell.txt"

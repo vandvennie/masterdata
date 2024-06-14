@@ -1,0 +1,3 @@
+select avg(quantity) as avg
+from po_items
+where item_id='P9';

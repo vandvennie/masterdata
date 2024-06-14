@@ -1,0 +1,4 @@
+select min(on_hand*price) as min,
+max(on_hand*price) as max
+from items
+where on_hand>100;

@@ -1,0 +1,3 @@
+select po_items.* from po_items left join items on po_items.item_id=items.item_id
+left join pos on po_items.job_id=pos.job_id and po_items.po_id=pos.po_id
+where items.price>50 and pos.vendor_id='ABC';

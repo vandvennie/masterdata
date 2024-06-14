@@ -1,0 +1,4 @@
+select job_id,po_id 
+from po_items
+where quantity>50
+Or item_id ='IRN';

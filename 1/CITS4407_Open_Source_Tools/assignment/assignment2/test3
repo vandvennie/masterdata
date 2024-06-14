@@ -1,0 +1,37 @@
+for entity in "${entities[@]}"
+do
+    awk -v entity="$entity" '
+        BEGIN {
+            FS="\t"
+            OFS="\t"
+            i = 0
+            sum_xy_l = 0
+            sum_x_l = 0
+            sum_y_l = 0
+            sum_xx_l = 0
+            sum_yy_l = 0
+        }
+
+        NR > 1 {
+            # 将每个国家的数据存储在对应的数组中
+            if ($1 == entity) {
+                sum_xy_l = sum_xy_l + ($7 * $8)
+                sum_x_l = sum_x_l + ($7)
+                sum_y_l = sum_y_l + ($8)
+                sum_xx_l = sum_xx_l + ($7 * $7)
+                sum_yy_l = sum_yy_l + ($8 * $8)
+
+                i = i + 1
+            }
+        }
+
+        END {
+            # 如果有至少3个预测-值对
+            if (i >= 3) {
+                up_l = (i * sum_xy_l) - (sum_x * sum_y_l)
+                down_l = sqrt((i * sum_xx_l - sum_x_l^2) * (i * sum_yy_l - sum_y_l^2))
+                cor_life = up_l / down_l
+                print "LifeExpectancy: ", entity, cor_life >> "life.txt"
+            }
+        }' "$1_cell.txt"
+done  

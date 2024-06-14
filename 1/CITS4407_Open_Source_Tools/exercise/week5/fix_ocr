@@ -1,0 +1,5 @@
+#1/urs/bin/env bash
+#look for a word which has been elited via OCR
+
+tr -cs '[A-Za-z]' '\012' < $1 | sort | uniq -c | grep '^ *1[^0-9]' | sed -e 's/ *1  *//' | sort > _uniq
+comm -23 _uniq /urs/share/dict/words > _uniq2

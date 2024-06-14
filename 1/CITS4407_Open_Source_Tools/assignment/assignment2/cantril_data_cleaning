@@ -1,0 +1,290 @@
+#!/bin/bash
+# This program is Assignment 2 for course 4407, submitted by student Zhulin Lyu (24516605) at the UWA
+# This Bash script called cantril_data_cleaning, which will use to clean the data. 
+# cantril_data_cleaning expects three .tsv files corresponding to the three files from Our World in Data.
+# The input files may be in any order. The output is expected to be a tab-separated data directed to standard output.
+# Usage: cantril_data_cleaning <tsv data file1> <tsvt data file2> <tsv data file3>
+
+# Check if the number of arguments is correct 
+if [[ $# -ne 3 ]]; then
+    echo "Error: The number of arguments is incorrect" > /dev/stderr
+    echo "Usage: cantril_data_cleaning <csv data file1> <csv data file2>  <csv data file3>"
+    exit 1
+# Check if three files of arguments are exist and has content 
+elif [[ ! -s "$1" ]]; then
+    echo "Error: The named input file "$1" does not exist or has zero length" > /dev/stderr
+    exit 1
+elif [[ ! -s "$2" ]]; then
+    echo "Error: The named input file "$2" does not exist or has zero length" > /dev/stderr
+    exit 1
+elif [[ ! -s "$3" ]]; then
+    echo "Error: The named input file "$3" does not exist or has zero length" > /dev/stderr
+    exit 1
+
+fi
+
+# Data-Cleaning
+# Step 1: Check header
+    # Bulid a function filehead(): To make sure that the files are a tab-separated format file
+filehead (){
+    header=$(head -n 1 "$1")
+    if grep -q $'\t' <<< "$header"; then
+        #If the file is a tab-separated format file, do nothing.
+        :
+    else
+        echo "Error: File $1 is no a tab-separated format file" >/dev/stderr
+        exit 1
+    fi
+}
+
+    # Invocking the function filehead() one by one
+for file in "$@"; do
+    filehead "$file"
+done
+    
+    
+# Step 2: Build some function to clean data of three files
+    # Function filecell(): To report date missing row（ the line do not have the same number of cells. (Cells are allowed be empty.))
+filecell() {
+    awk 'BEGIN {
+        FS="\t"
+        OFS="\t"
+        }
+    NR == 1 {
+        column_num = NF #Using NF find the number of cells
+        print $0
+        }
+    NR > 1 {
+         if (NF == column_num) { 
+            print
+        }
+        else {"Error: file " FILENAME " has line " NR " as a date missing row" > "/dev/stderr"}
+    
+    }' "$1"
+}
+
+
+    # Function rm_con(): To remove the column with header Continent
+rm_con() {
+    awk 'BEGIN{
+        FS="\t"
+        OFS="\t"
+        findflag=0
+    }
+    NR == 1{
+        for (i = 1; i <= NF; i++) {
+            if (tolower($i) == "continent") {
+                column_cont=i
+                findflag=1
+                break
+            }
+        }
+        if (findflag == 0) {
+            print $0  
+        } else {
+            for (i = 1; i <= NF; i++) {
+                if (i != column_cont) {
+                    printf("%s%s", $i, (i == NF) ? ORS : OFS)  # remove "continent" from header
+                }
+            }
+            printf("\n")
+        }
+    }
+
+    NR > 1{
+        if (findflag == 1) {
+            $column_cont = ""  # remove the column of "continent"
+            print
+        } else {
+            print $0 
+        }
+    }' "$1"
+}
+
+
+    # Function rm_noncode(): To ignore the country code field is empty
+rm_noncode() {
+    awk 'BEGIN {
+        FS="\t"
+        OFS="\t"
+        column_code="NULL"}
+    
+    NR == 1 {
+        for (i = 1; i <= NF; i++) {
+            if (tolower($i) == "code") {
+                column_code = i
+                break
+            }
+        }
+        print $0
+    }
+    NR > 1 {
+        if ($column_code != "") {
+            print $0
+        }
+    }' "$1"
+}
+
+
+    # Function rm_year(): To ignore the rows for years outside those for which we have at least some Cantril data
+    # Here, I attempt to utilize the following function to calculate the matching year, but it doesn't work. Hence, I have written two "rm_year" functions.
+    # This 'rm_year' code has been commented out by me. The subsequent function should actually work.
+#rm_year(){awk 'BEGIN {
+#    FS="\t"
+#    OFS="\t"
+#    a=1
+#} 
+#NR==1 {
+#    print $0
+#    for (i = 1; i <= NF; i++) {
+#        if (tolower($i) ~ /^cantril/) {  
+#            column_cantril = i
+#       }
+#        if (tolower($i) == "year") {
+#           column_year = i
+#        }
+#    }
+#}
+#NR > 1 {
+#    if ($column_cantril != "") {
+#        if (!($column_year in year)) {
+#            year[a] = $column_year
+#            a += 1
+#        }
+#    }
+#}
+#NR > 1 {
+#    for (i in year) {
+#        if ($column_year == year[i]) {
+#            print $0
+#        }
+#   }
+#}' "$1"
+#}
+
+    # Function rm_year(): To remove the data of year only include years from 2011 to 2021
+rm_year(){
+awk 'BEGIN {
+    FS="\t"
+    OFS="\t"
+    a=1
+} 
+NR==1 {
+    print $0
+    for (i = 1; i <= NF; i++) {
+        if (tolower($i) == "year") {
+            column_year = i
+        }
+    }
+}
+NR > 1 {
+    if ($column_year <= 2021 && $column_year >= 2011) {
+        print $0
+    }
+
+}' "$1"
+}
+
+    # Function cre_pk(): To insert a new column at the front which combines the country code and year to form a primary key
+cre_pk(){
+    awk 'BEGIN {
+        FS="\t"
+        OFS="\t"
+    } 
+    NR == 1{
+        print "pk",$0
+        for (i = 1; i <= NF; i++) {
+            if (tolower($i) == "code") {
+                column_code = i
+            }
+            if (tolower($i) == "year") {
+                column_year = i
+            }
+        }
+    }
+    NR > 1{
+        print $column_code$column_year,$0
+}' "$1"
+}
+
+
+    # Invoking functions
+    # Create three files named "$file"_pk.txt after invoking functions step by step
+for file in "$@"; do
+    filecell "$file" | rm_con | rm_noncode | rm_year | cre_pk > "$file"_pk.txt
+done
+
+
+ # Sort files named "$file"_pk.txt
+    # Function sortfile(): To sort the file named xxx_pk.txt
+sortfile(){
+    head -n 1 "$1" > "$1"_sort.txt #print head
+    tail -n +2 "$1" | sort -t $'\t' -k1 >> "$1"_sort.txt #sort data
+}
+
+for file in "$@"; do
+    sortfile  "$file"*_pk.txt
+    rm "$file"*_pk.txt
+done
+
+
+# Step 3: Merge three files
+    # Find keywords from "$file"_sort.txt, then rename it to be named after the keywords
+for file in "$@"; do
+    header=$(head -n 1 "$file"*_sort.txt)
+
+    if grep -q "GDP" <<< "$header"; then
+        mv "${file}"*_sort.txt gdp.txt
+    elif grep -q "Life" <<< "$header"; then
+        mv "${file}"*_sort.txt life.txt
+    elif grep -q "Homicide" <<< "$header"; then
+        mv "${file}"*_sort.txt hom.txt
+
+    fi
+done
+
+
+    # Combine tables that have keywords "gdp" or "homicide", and choose useful data columns to create a temporary file
+join -t $'\t' -a 1 -a 2 -o 1.1,1.2,1.3,1.4,1.6,1.7,2.1,2.2,2.3,2.4,2.5,1.5 gdp.txt hom.txt > merge_data_tt.txt
+awk 'BEGIN {
+    FS="\t"
+    OFS="\t"
+} 
+NR==1 {
+    print $0
+    }
+NR > 1 {
+    if ($2 != "" ) {
+        print $0
+    }
+    if ($2 == "" && $7 != "") {
+        print $7, $8, $9, $10, $5, $6, $7, $8, $9, $10, $11, $12
+    }
+}' merge_data_tt.txt | sed 's/\t$//' > "merge_data_t.txt"
+
+    # Combine files from the previous step with a table that has the keyword "life expectancy", then create a file with the expected data
+    # Arrange headers in the following order
+    #<Entity/Country> <Code> <Year> <GDP per capita> <Population> <Homicide Rate> <Life Expectancy> <Cantril Ladder score>
+join -t $'\t' -a 1 -a 2 -o 1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,1.10,1.11,2.1,2.2,2.3,2.4,2.5,1.12 merge_data_t.txt life.txt > merge_data.txt
+awk 'BEGIN {
+    FS="\t"
+    OFS="\t"
+    print "Entity\tCode\tYear\tGDP per capita, PPP (constant 2017 international $)\tPopulation (historical estimates)\tHomicide rate per 100,000 population - Both sexes - All ages\tLife expectancy - Sex: all - Age: at birth - Variant: estimates\tCantril ladder score"
+} 
+
+NR > 1 {
+    if ($2 != "" ) {
+        print $2, $3, $4, $5, $6, $11, $16, $17
+    }
+    if ($2 == "" && $7 != "") {
+        print $8, $9, $10, $5, $6, $11, $16, $17
+    }
+    if ($2 == "" && $7 == "" && $12 != "") {
+        print $13, $14, $15, $5, $6, $11, $16, $17
+    }
+}' merge_data.txt | sed 's/\t$//'
+
+
+#Step 4: Remove temporary files
+rm gdp.txt life.txt hom.txt merge_data_tt.txt merge_data_t.txt merge_data.txt
+

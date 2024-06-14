@@ -1,0 +1,1 @@
+Select * from po_items where job_id!='002' and quantity>(select min(quantity) from po_items where job_id="002" );

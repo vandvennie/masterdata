@@ -1,0 +1,4 @@
+select DISTINCT job_id, po_id
+from po_items
+where quantity>50
+or item_id ='IRN';

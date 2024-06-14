@@ -1,0 +1,4 @@
+select cust_id,phone
+from publishers
+where phone is null
+Or substr(phone,-4) not like'%6%';

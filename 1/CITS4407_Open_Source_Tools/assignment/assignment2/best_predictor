@@ -1,0 +1,225 @@
+#!/bin/bash
+# This program is Assignment 2 for course 4407, submitted by student Zhulin Lyu (24516605) at the UWA
+# This Bash script called called best_predictor. What the program is seeking is the best predictor of Cantril-ladder life-satisfaction scores.
+# The scores based on the other data, which are thought to generally influence life-satisfaction across the community: GDP per capita, Population, Homicide Rate per 100,000 and Life Expectancy. 
+# Usage: best_predictor <tsv data file>
+
+#Step 1: Clean data
+    # Keep only the data without any empty lines
+awk '
+    BEGIN {
+        FS="\t"
+        OFS="\t"
+    }
+    NR == 1 {
+        print $0
+    }
+    NR > 1 {
+        if (length($4) > 0 && length($5) > 0 && length($6) > 0 && length($7) > 0 && length($8) > 0) {
+            print $0
+        }
+    }
+' "$1" | sed 's/\t$//' > "$1_cell.txt"
+
+# Step 2: Find unique countries
+    # Build a list of unique countries
+value_entity=$(awk '
+    BEGIN {
+        FS="\t"
+        OFS="\t"
+        x=1     
+    }
+    NR > 1 {
+        if (!($1 in value_entity)) {
+            value_entity[$1] = x
+            x = x + 1
+        }
+        
+    }
+    END {
+        # Output array elements, with each element on a separate line
+        for (i in value_entity) {
+            print i
+    }
+}
+' "$1_cell.txt" | sed 's/\t$//')
+
+    # Set the countries array entities, with each element separated by newline and terminated by null character
+IFS=$'\n' read -r -d '' -a entities <<< "$value_entity"
+
+
+# Step 3: Calculate Pearson correlation
+for entity in "${entities[@]}"
+do
+    awk -v entity="$entity" '
+        BEGIN {
+            FS="\t"
+            OFS="\t"
+            i = 0
+        # Initialize data for GDP
+            sum_xy_g = 0
+            sum_x_g = 0
+            sum_y_g = 0
+            sum_xx_g = 0
+            sum_yy_g = 0
+        # Initialize data for Population
+            sum_xy_p = 0
+            sum_x_p = 0
+            sum_y_p = 0
+            sum_xx_p = 0
+            sum_yy_p = 0
+        # Initialize data for Homicide
+            sum_x_h = 0
+            sum_x_h = 0
+            sum_y_h = 0
+            sum_xx_h = 0
+            sum_yy_h = 0
+        # Initialize data for Life Expectancy
+            sum_xy_l = 0
+            sum_x_l = 0
+            sum_y_l = 0
+            sum_xx_l = 0
+            sum_yy_l = 0
+        }
+
+        NR > 1 {
+            if ($1 == entity) {
+                sum_xy_g = sum_xy_g + ($4 * $8)
+                sum_x_g = sum_x_g + ($4)
+                sum_y_g = sum_y_g + ($8)
+                sum_xx_g = sum_xx_g + ($4 * $4)
+                sum_yy_g = sum_yy_g + ($8 * $8)
+
+                sum_xy_p = sum_xy_p + ($5 * $8)
+                sum_x_p = sum_x_p + ($5)
+                sum_y_p = sum_y_p + ($8)
+                sum_xx_p = sum_xx_p + ($5 * $5)
+                sum_yy_p = sum_yy_p + ($8 * $8)
+
+                sum_xy_h = sum_xy_h + ($6 * $8)
+                sum_x_h = sum_x_h + ($6)
+                sum_y_h = sum_y_h + ($8)
+                sum_xx_h = sum_xx_h + ($6 * $6)
+                sum_yy_h = sum_yy_h + ($8 * $8)
+
+                sum_xy_l = sum_xy_l + ($7 * $8)
+                sum_x_l = sum_x_l + ($7)
+                sum_y_l = sum_y_l + ($8)
+                sum_xx_l = sum_xx_l + ($7 * $7)
+                sum_yy_l = sum_yy_l + ($8 * $8)
+
+                i = i + 1
+            }
+        }
+
+        END {
+        # Include a correlation for any country there be at least 3 predictor-value, Cantril-value pairs
+            if (i >= 3) {
+            # Calculate data for GDP
+                up_g = (i * sum_xy_g) - (sum_x_g * sum_y_g)
+                down_g = sqrt((i * sum_xx_g - sum_x_g^2) * (i * sum_yy_g - sum_y_g^2))
+                if (down_g != 0) {
+                    cor_gdp = up_g / down_g
+                } else {
+                    cor_gdp = 0
+                }
+                print "GDP: ", entity, cor_gdp >> "gdp.txt"
+
+            # Calculate data for Population
+                up_p = (i * sum_xy_p) - (sum_x_p * sum_y_p)
+                down_p = sqrt((i * sum_xx_p - sum_x_p^2) * (i * sum_yy_p - sum_y_p^2))
+                if (down_p != 0) {
+                    cor_pop = up_p / down_p
+                } else {
+                    cor_pop = 0
+                }
+                print "Population: ", entity, cor_pop >> "population.txt"
+
+            # Calculate data for Homicide
+                up_h = (i * sum_xy_h) - (sum_x_h * sum_y_h)
+                down_h = sqrt((i * sum_xx_h - sum_x_h^2) * (i * sum_yy_h - sum_y_h^2))
+                if (down_h != 0) {
+                    cor_homicide = up_h / down_h
+                } else {
+                    cor_homicide = 0
+                }
+                print "Homicide: ", entity, cor_homicide >> "homicide.txt"
+
+            # Calculate data for Life Expectancy
+                up_l = (i * sum_xy_l) - (sum_x_l * sum_y_l)
+                down_l = sqrt((i * sum_xx_l - sum_x_l^2) * (i * sum_yy_l - sum_y_l^2))
+                if (down_l != 0) {
+                    cor_life = up_l / down_l
+                } else {
+                    cor_life = 0
+                }
+                print "LifeExpectancy: ", entity, cor_life >> "life.txt"
+            }
+        }' "$1_cell.txt"
+done  
+
+# Step 5: Calculate averages
+    # Initialize data
+files=("gdp.txt" "population.txt" "homicide.txt" "life.txt")
+
+ave_gdp=0
+ave_population=0
+ave_homicide=0
+ave_life=0
+
+    # Iterate over each file and calculate the average of the third column
+for file in "${files[@]}"; do
+    ave=$(awk -F '\t' '{sum += $3} END {if (NR > 0) print sum/NR; else print 0}' "$file")
+
+    # Store the average with 3 decimal places
+    case "$file" in
+        "gdp.txt") ave_gdp=$(printf "%.3f" "$ave") ;;
+        "population.txt") ave_population=$(printf "%.3f" "$ave") ;;
+        "homicide.txt") ave_homicide=$(printf "%.3f" "$ave") ;;
+        "life.txt") ave_life=$(printf "%.3f" "$ave") ;;
+    esac
+done
+
+
+# Step 5: Determine the maximum absolute average value and file
+    # Build a function to calculate absolute value
+abs() { echo ${1#-};}
+
+abs_gdp=$(abs "$ave_gdp")
+abs_population=$(abs "$ave_population")
+abs_homicide=$(abs "$ave_homicide")
+abs_life=$(abs "$ave_life")
+
+max_abs=$abs_gdp
+max_type="GDP"
+type_ave=$ave_gdp
+
+    # Compare every two data points and find the larger one
+if (( $(echo "$abs_population > $max_abs" | bc -l) )); then
+    max_abs=$abs_population
+    max_type="Population"
+    type_ave=$ave_population
+fi
+
+if (( $(echo "$abs_homicide > $max_abs" | bc -l) )); then
+    max_abs=$abs_homicide
+    max_type="Homicide"
+    type_ave=$ave_homicide
+fi
+
+if (( $(echo "$abs_life > $max_abs" | bc -l) )); then
+    max_abs=$abs_life
+    max_type="Life Expectancy"
+    type_ave=$ave_life
+fi
+
+# Print the results
+echo "Mean correlation of Homicide Rate with Cantril ladder is $ave_homicide"
+echo "Mean correlation of GDP with Cantril ladder is $ave_gdp"
+echo "Mean correlation of Population with Cantril ladder is $ave_population"
+echo "Mean correlation of Life Expectancy with Cantril ladder is $ave_life"
+echo "Most predictive mean correlation with the Cantril ladder is $max_type (r = $type_ave)"
+
+# Remove temporary files
+rm -rf "$1_cell.txt" "gdp.txt" "population.txt" "homicide.txt" "life.txt"
+
